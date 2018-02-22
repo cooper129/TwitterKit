@@ -10,8 +10,15 @@ import UIKit
 import TwitterKit
 import TwitterCore
 
-class ViewController: UIViewController, TWTRComposerViewControllerDelegate {
+class ViewController: UIViewController, TWTRComposerViewControllerDelegate{
 
+    
+    
+    @IBOutlet var imgTweet: UIImageView!
+    @IBOutlet var tvTweet: UITextView!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -22,24 +29,10 @@ class ViewController: UIViewController, TWTRComposerViewControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    /*
-    @IBAction func btnLoginPressed(_ sender: UIButton) {
-        
-     
-        TwitterAPIManager.loginIfNeeded { (error) in
-        
-            if (error != nil) {
-                print("some error occured == \(String(describing: error?.localizedDescription))")
-            }else{
-                print("no error occured, LOGIN complete")
-            }
-            
-        }
-    }
-    */
-    
+
     @IBAction func btnTwitterSharePressed(_ sender: UIButton) {
         
+     
         if (Twitter.sharedInstance().sessionStore.hasLoggedInUsers()) {
             // App must have at least one logged-in user to compose a Tweet
            
@@ -74,6 +67,7 @@ class ViewController: UIViewController, TWTRComposerViewControllerDelegate {
                 }
             }
         }
+ 
         
     }
     
@@ -89,7 +83,6 @@ class ViewController: UIViewController, TWTRComposerViewControllerDelegate {
     func composerDidFail(_ controller: TWTRComposerViewController, withError error: Error) {
         print("composerDidFail, tweet publish failed == \(error.localizedDescription)")
     }
-    
 
 }
 

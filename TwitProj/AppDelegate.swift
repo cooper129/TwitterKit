@@ -10,7 +10,7 @@ import UIKit
 import TwitterKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,TWTRComposerViewControllerDelegate {
 
     var window: UIWindow?
 
@@ -54,6 +54,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    func postTweetWith(imgIn:UIImage, withText textIn:String){
+        
+        let rootVC = self.window?.rootViewController
+        
+        let composer = TWTRComposerViewController.init(initialText:textIn , image: imgIn, videoURL: nil)
+        composer.delegate = self
+        rootVC?.present(composer, animated: true, completion: nil)
+        
+    }
+    
+    //MARK:- TWTRComposerViewControllerDelegate
+    
+    func composerDidCancel(_ controller: TWTRComposerViewController) {
+        print("composerDidCancel, composer cancelled tweet")
+    }
+    
+    func composerDidSucceed(_ controller: TWTRComposerViewController, with tweet: TWTRTweet) {
+        print("composerDidSucceed tweet published")
+    }
+    func composerDidFail(_ controller: TWTRComposerViewController, withError error: Error) {
+        print("composerDidFail, tweet publish failed == \(error.localizedDescription)")
+    }
 
 }
 
